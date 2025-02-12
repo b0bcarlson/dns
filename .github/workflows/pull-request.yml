@@ -8,7 +8,6 @@ jobs:
   pr-verify:
     runs-on: ubuntu-latest
     name: PR Verify
-    environment: prod
     steps:
       - name: Clone Code
         uses: actions/checkout@4.2.2
