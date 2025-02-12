@@ -1,0 +1,28 @@
+name: Publish
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  pr-verify:
+    runs-on: ubuntu-latest
+    name: PR Verify
+    environment: prod
+    steps:
+      - name: Clone Code
+        uses: actions/checkout@4.2.2
+      - name: Setup Terraform
+        uses: hasicorp/setup-terraform@v3.1.2
+      - name: Init Terraform
+        working-directory: terraform
+        run: terraform init -input=false
+      - name: Lint Terraform
+        working-directory: terraform
+        run: terraform fmt -check -recursive
+      - name: Validate Terraform
+        working-directory: terraform
+        run: terraform validate
+      - name: Apply
+        working-directory: terraform
+        run: terraform apply -input=false -auto-approve
