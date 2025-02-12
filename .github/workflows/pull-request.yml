@@ -23,7 +23,10 @@ jobs:
       - name: Validate Terraform
         working-directory: terraform
         run: terraform validate
-      - name: Comment changes
+      - name: Plan Terraform
+        working-directory: terraform
+        run: terraform show -no-color -json tfplan.plan > tfplan.json
+      - name: Comment Changes
         uses: liatrio/terraform-change-pr-commenter@v1.4.0
         with:
           expand-comment: 'true'
