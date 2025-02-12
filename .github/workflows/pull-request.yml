@@ -13,7 +13,7 @@ jobs:
       - name: Clone Code
         uses: actions/checkout@4.2.2
       - name: Setup Terraform
-        uses: hasicorp/setup-terraform@v3.1.2
+        uses: hashicorp/setup-terraform@v3.1.2
       - name: Init Terraform
         working-directory: terraform
         run: terraform init -input=false
@@ -23,3 +23,8 @@ jobs:
       - name: Validate Terraform
         working-directory: terraform
         run: terraform validate
+      - name: Comment changes
+        uses: liatrio/terraform-change-pr-commenter@v1.4.0
+        with:
+          expand-comment: 'true'
+          include-plan-job-summary: 'true'

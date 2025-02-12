@@ -5,15 +5,15 @@ on:
       - main
   workflow_dispatch:
 jobs:
-  pr-verify:
+  publish:
     runs-on: ubuntu-latest
-    name: PR Verify
+    name: Publish
     environment: prod
     steps:
       - name: Clone Code
         uses: actions/checkout@4.2.2
       - name: Setup Terraform
-        uses: hasicorp/setup-terraform@v3.1.2
+        uses: hashicorp/setup-terraform@v3.1.2
       - name: Init Terraform
         working-directory: terraform
         run: terraform init -input=false
