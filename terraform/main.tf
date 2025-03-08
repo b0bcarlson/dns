@@ -23,5 +23,5 @@ terraform {
   }
 }
 locals {
-  ipAddress = "173.31.189.179"
+  ipAddress = "173.31.189.178"
 }
