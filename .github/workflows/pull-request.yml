@@ -22,9 +22,9 @@ jobs:
       - name: Validate Terraform
         working-directory: terraform
         run: terraform validate
-#      - name: Plan Terraform
-#        working-directory: terraform
-#        run: terraform plan -no-color
+      - name: Plan Terraform
+        working-directory: terraform
+        run: terraform plan -no-color
       - name: Show Terraform
         working-directory: terraform
         run: terraform show -no-color -json > tfplan.json
