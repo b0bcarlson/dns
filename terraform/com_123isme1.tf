@@ -31,3 +31,10 @@ resource "digitalocean_record" "com_123isme1_mx_20" {
   value    = "mxb.mailgun.org."
   ttl      = local.ttl
 }
+resource "digitalocean_record" "com_123isme1_txt_acme_challenge" {
+  domain = digitalocean_domain.com_123isme1.id
+  type   = "TXT"
+  name   = "_acme-challenge"
+  value  = "6sT6cQlYZKLWCMdhpuqC5Ag9ZnCyOfoXEl7DKNS4Ayw"
+  ttl    = local.ttl
+}
