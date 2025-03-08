@@ -35,6 +35,6 @@ resource "digitalocean_record" "com_123isme1_txt_acme_challenge" {
   domain = digitalocean_domain.com_123isme1.id
   type   = "TXT"
   name   = "_acme-challenge"
-  value  = "QuJCBSoMex09ahnO2MvyBlkjmhfIkSklxKy6S_Fm-OA"
+  value  = "cj45IRSkqdNg9iYYGmL9fEE-bIYwYfuE-2UI3CE9wOA"
   ttl    = local.ttl
 }
