@@ -4,16 +4,22 @@ on:
     branches: [ main ]
   merge_group:
     branches: [ main ]
+permissions:
+  pull-requests: write
+  contents: read
 jobs:
   pr-verify:
     runs-on: ubuntu-latest
     name: PR Verify
-    environment: prod
+    env:
+      AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+      AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      DIGITALOCEAN_TOKEN: "${{ secrets.DIGITALOCEAN_TOKEN }}"
     steps:
       - name: Clone Code
-        uses: actions/checkout@4.2.2
+        uses: actions/checkout@v4.2.2
       - name: Setup Terraform
-        uses: hasicorp/setup-terraform@v3.1.2
+        uses: hashicorp/setup-terraform@v3.1.2
       - name: Init Terraform
         working-directory: terraform
         run: terraform init -input=false
@@ -23,3 +29,12 @@ jobs:
       - name: Validate Terraform
         working-directory: terraform
         run: terraform validate
+      - name: Plan Terraform
+        working-directory: terraform
+        run: terraform plan -no-color --out=tfplan.tfplan
+      - name: Post PR comment
+        uses: borchero/terraform-plan-comment@v2.3.0
+        with:
+          token: ${{ github.token }}
+          planfile: tfplan.tfplan
+          working-directory: terraform

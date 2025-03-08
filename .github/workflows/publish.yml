@@ -5,15 +5,19 @@ on:
       - main
   workflow_dispatch:
 jobs:
-  pr-verify:
+  publish:
     runs-on: ubuntu-latest
-    name: PR Verify
+    name: Publish
     environment: prod
+    env:
+      AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+      AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      DIGITALOCEAN_TOKEN: "${{ secrets.DIGITALOCEAN_TOKEN }}"
     steps:
       - name: Clone Code
-        uses: actions/checkout@4.2.2
+        uses: actions/checkout@v4.2.2
       - name: Setup Terraform
-        uses: hasicorp/setup-terraform@v3.1.2
+        uses: hashicorp/setup-terraform@v3.1.2
       - name: Init Terraform
         working-directory: terraform
         run: terraform init -input=false
