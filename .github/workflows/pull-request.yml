@@ -8,6 +8,10 @@ jobs:
   pr-verify:
     runs-on: ubuntu-latest
     name: PR Verify
+    env:
+      AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+      AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      DIGITALOCEAN_TOKEN: "${{ secrets.DIGITALOCEAN_TOKEN }}"
     steps:
       - name: Clone Code
         uses: actions/checkout@v4.2.2
