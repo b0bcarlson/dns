@@ -20,24 +20,48 @@ jobs:
         uses: actions/checkout@v4.2.2
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3.1.2
-      - name: Init Terraform
-        working-directory: terraform
-        run: terraform init -input=false
-      - name: Lint Terraform
-        working-directory: terraform
+      - name: Terraform Format
+        id: fmt
         run: terraform fmt -check -recursive
-      - name: Validate Terraform
+        continue-on-error: true
         working-directory: terraform
-        run: terraform validate
-      - name: Plan Terraform
-        working-directory: terraform
-        run: terraform plan -no-color --out=tfplan.tfplan
-      - name: Show Terraform
-        working-directory: terraform
-        run: terraform show -no-color -json tfplan.tfplan > tfplan.json
-      - name: Comment Changes
-        uses: liatrio/terraform-change-pr-commenter@v1.4.5
+      - name: Post Format
+        if: always() && (steps.fmt.outcome == 'success' || steps.fmt.outcome == 'failure')
+        uses: robburger/terraform-pr-commenter@v1.5.0
         with:
-          expand-comment: 'true'
-          include-plan-job-summary: 'true'
-          json-file: 'terraform/tfplan.json'
+          commenter_type: fmt
+          commenter_input: ${{ format('{0}{1}', steps.fmt.outputs.stdout, steps.fmt.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.fmt.outputs.exitcode }}
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: terraform
+      - name: Post Init
+        if: always() && (steps.init.outcome == 'success' || steps.init.outcome == 'failure')
+        uses: robburger/terraform-pr-commenter@v1.5.0
+        with:
+          commenter_type: init
+          commenter_input: ${{ format('{0}{1}', steps.init.outputs.stdout, steps.init.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.init.outputs.exitcode }}
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+        working-directory: terraform
+      - name: Post Validate
+        if: always() && (steps.validate.outcome == 'success' || steps.validate.outcome == 'failure')
+        uses: robburger/terraform-pr-commenter@v1.5.0
+        with:
+          commenter_type: validate
+          commenter_input: ${{ format('{0}{1}', steps.validate.outputs.stdout, steps.validate.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.validate.outputs.exitcode }}
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out workspace.plan
+        working-directory: terraform
+      - name: Post Plan
+        if: always() && (steps.plan.outcome == 'success' || steps.plan.outcome == 'failure')
+        uses: robburger/terraform-pr-commenter@v1.5.0
+        with:
+          commenter_type: plan
+          commenter_input: ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.plan.outputs.exitcode }}
