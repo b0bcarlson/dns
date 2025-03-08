@@ -10,7 +10,7 @@ jobs:
     name: PR Verify
     steps:
       - name: Clone Code
-        uses: actions/checkout@4.2.2
+        uses: actions/checkout@v4.2.2
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3.1.2
       - name: Init Terraform
