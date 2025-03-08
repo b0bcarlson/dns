@@ -91,6 +91,6 @@ resource "digitalocean_record" "net_bobcodes_txt_acme_challenge" {
   domain = digitalocean_domain.net_bobcodes.id
   type   = "TXT"
   name   = "_acme-challenge"
-  value  = "qXEDaIzzoe0HF7lC7Sbnp6_N1MPvKwBeADgtdpyRIvY"
+  value  = "jkGlIUae-kox75eQQakxUskv4PavS4byST12dmVYZvk"
   ttl    = local.ttl
 }
