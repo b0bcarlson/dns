@@ -36,7 +36,7 @@ jobs:
         working-directory: terraform
         run: terraform show -no-color -json > tfplan.json
       - name: Comment Changes
-        uses: liatrio/terraform-change-pr-commenter@v1.4.1
+        uses: liatrio/terraform-change-pr-commenter@v1.4.5
         with:
           expand-comment: 'true'
           include-plan-job-summary: 'true'
