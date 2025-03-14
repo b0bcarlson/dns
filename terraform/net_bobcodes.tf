@@ -63,7 +63,7 @@ resource "digitalocean_record" "net_bobcodes_txt_dmarc" {
   domain = digitalocean_domain.net_bobcodes.id
   type   = "TXT"
   name   = "_dmarc"
-  value  = "v=DMARC1; p=reject; rua=mailto:postmaster@bobcodes.net; aspf=r"
+  value  = "v=DMARC1; p=reject; aspf=r"
   ttl    = local.ttl
 }
 resource "digitalocean_record" "net_bobcodes_txt_mail_domainkey" {
