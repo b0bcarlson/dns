@@ -23,6 +23,9 @@ terraform {
   }
 }
 locals {
-  ipAddress = "173.31.189.178"
-  ttl       = 300
+  ipAddress                         = "173.31.189.178"
+  ttl                               = 300
+  com_123isme1_acme_challenge_value = "DzTtUtp862VgssgsAvaeK8g6WODec3G-jGQOVVpKADU"
+  es_bobcod_acme_challenge_value    = ""
+  net_bobcodes_acme_challenge_value = ""
 }

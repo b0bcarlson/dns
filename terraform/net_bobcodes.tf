@@ -87,3 +87,10 @@ resource "digitalocean_record" "net_bobcodes_txt_spf" {
   value  = "v=spf1 ip4:${local.ipAddress} include:_spf.protonmail.ch -all"
   ttl    = local.ttl
 }
+resource "digitalocean_record" "net_bobcodes_txt_acme_challenge" {
+  domain = digitalocean_domain.net_bobcodes.id
+  type   = "TXT"
+  name   = "_acme-challenge"
+  value  = local.net_bobcodes_acme_challenge_value
+  ttl    = local.ttl
+}
