@@ -23,7 +23,7 @@ terraform {
   }
 }
 locals {
-  ipAddress                         = "192.95.125.83"
+  ipAddress                         = "192.95.125.196"
   ttl                               = 300
   com_123isme1_acme_challenge_value = "DzTtUtp862VgssgsAvaeK8g6WODec3G-jGQOVVpKADU"
   es_bobcod_acme_challenge_value    = "PUvjSxyuw--WP6zIGsawxolojBghfD0_1FS2aBHyX18"
