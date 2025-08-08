@@ -13,6 +13,9 @@ on:
       create_pr:
         required: true
         description: create_pr
+permissions:
+  pull-requests: write
+  contents: write
 jobs:
   acme-update-file:
     runs-on: ubuntu-latest
