@@ -1,0 +1,37 @@
+on:
+  workflow_dispatch:
+    inputs:
+      acme_key:
+        required: true
+        description: acme_key
+      acme_value:
+        required: true
+        description: acme value
+      branch_name:
+        required: true
+        description: branch_name
+      create_pr:
+        required: true
+        description: create_pr
+permissions:
+  pull-requests: write
+  contents: write
+jobs:
+  acme-update-file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch_name }}
+
+      - name: Update file
+        run: sed 's/${{ inputs.acme_key }}.\+/${{ inputs.acme_key }} = "${{ inputs.acme_value }}"/' terraform/main.tf > terraform/main.tf
+        shell: bash
+
+      - name: Commit and push
+        id: push
+        run: |
+          git add terraform/main.tf
+          git commit -m "acme-update-file ${{ inputs.acme_key }}"
+          git push origin "${{ inputs.branch_name }}"
+        shell: bash
