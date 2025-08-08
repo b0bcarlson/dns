@@ -20,9 +20,22 @@ jobs:
   acme-update-file:
     runs-on: ubuntu-latest
     steps:
+      - id: check-branch-exists
+        run: |
+          if [[ -n $(git ls-remote --heads origin ${{ inputs.branch }}) ]]; then
+              echo "exists=true" >> $GITHUB_OUTPUT
+          else
+              echo "exists=false" >> $GITHUB_OUTPUT          
+          fi
+        shell: bash
+
       - uses: actions/checkout@v4
+        if: steps.check-branch-exists.outputs.exists == 'true'
         with:
           ref: ${{ inputs.branch_name }}
+
+      - uses: actions/checkout@v4
+        if: steps.check-branch-exists.outputs.exists == 'false'
 
       - name: Update file
         run: sed 's/${{ inputs.acme_key }}.\+/${{ inputs.acme_key }} = "${{ inputs.acme_value }}"/' terraform/main.tf > terraform/main.tf
