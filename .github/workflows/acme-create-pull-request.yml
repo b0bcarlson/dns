@@ -1,0 +1,25 @@
+name: ACME Create Pull Request
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        required: true
+        description: branch_name
+      expected_edits:
+        required: true
+        type: number
+        description: expected_edits
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  acme-create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create pull request
+        run: gh pr create -B main -H ${{ inputs.branch_name }} --title 'ACME Updates' --body 'expected_edits=${{ inputs.expected_edits }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
