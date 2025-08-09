@@ -20,6 +20,12 @@ permissions:
 jobs:
   acme-update-file:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+      AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      DIGITALOCEAN_TOKEN: "${{ secrets.DIGITALOCEAN_TOKEN }}"
+      AWS_REQUEST_CHECKSUM_CALCULATION: "when_required"
+      AWS_RESPONSE_CHECKSUM_VALIDATION: "when_required"
     steps:
       - uses: actions/checkout@v4
         with:
