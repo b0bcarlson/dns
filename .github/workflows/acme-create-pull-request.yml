@@ -25,7 +25,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Create pull request
-        run: echo "PULL_REQUEST_URL=$(gh pr create -B main -H ${{ inputs.branch_name }} --title 'ACME Updates' --body 'expected_edits=${{ inputs.expected_edits }}'" >> $GITHUB_OUTPUT
+        run: echo "PULL_REQUEST_URL=$(gh pr create -B main -H ${{ inputs.branch_name }} --title 'ACME Updates' --body 'expected_edits=${{ inputs.expected_edits }}')" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         id: create_pull_request
