@@ -36,9 +36,13 @@ jobs:
 
       - uses: actions/checkout@v4
         if: steps.check-branch-exists.outputs.exists == 'false'
+        with:
+          ref: main
 
       - name: Update file
-        run: sed 's/${{ inputs.acme_key }}.\+/${{ inputs.acme_key }} = "${{ inputs.acme_value }}"/' terraform/main.tf > terraform/main.tf
+        run: |
+          sed -e 's/${{ inputs.acme_key }}.\+/${{ inputs.acme_key }}\ =\ \"${{ inputs.acme_value }}\"/' terraform/main.tf > main.tf.tmp
+          mv main.tf.tmp terraform/main.tf
         shell: bash
 
       - uses: EndBug/add-and-commit@v9
