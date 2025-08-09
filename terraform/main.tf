@@ -25,7 +25,7 @@ terraform {
 locals {
   ipAddress                         = "192.95.125.196"
   ttl                               = 300
-  com_123isme1_acme_challenge_value = "9BfFBpMpiyjKDy_kFCwEoT55Ijof7wnkmxbSoBHgAwc"
+  com_123isme1_acme_challenge_value = "testval"
   es_bobcod_acme_challenge_value    = "lLR4PZmq8BWpRJvEzZESx4DfHtEkimMR1Vrr8gbTyfI"
   net_bobcodes_acme_challenge_value = "fLUaPvzSKUVYbX5OQ5puCU9D942tHZnYY6LzJuTOu0U"
 }
