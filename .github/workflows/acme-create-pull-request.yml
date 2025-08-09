@@ -19,6 +19,9 @@ jobs:
   acme-create-pull-request:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: create pull request
         run: gh pr create -B main -H ${{ inputs.branch_name }} --title 'ACME Updates' --body 'expected_edits=${{ inputs.expected_edits }}'
         env:
