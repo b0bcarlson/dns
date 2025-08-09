@@ -1,3 +1,5 @@
+name: ACME Update File
+
 on:
   workflow_dispatch:
     inputs:
@@ -10,28 +12,64 @@ on:
       branch_name:
         required: true
         description: branch_name
-      create_pr:
-        required: true
-        description: create_pr
+
 permissions:
   pull-requests: write
   contents: write
+
 jobs:
   acme-update-file:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+      AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      DIGITALOCEAN_TOKEN: "${{ secrets.DIGITALOCEAN_TOKEN }}"
+      AWS_REQUEST_CHECKSUM_CALCULATION: "when_required"
+      AWS_RESPONSE_CHECKSUM_VALIDATION: "when_required"
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
+
+      - id: check-branch-exists
+        run: |
+          if [[ -n $(git ls-remote --heads origin ${{ inputs.branch }}) ]]; then
+              echo "exists=true" >> $GITHUB_OUTPUT
+          else
+              echo "exists=false" >> $GITHUB_OUTPUT          
+          fi
+        shell: bash
+
+      - uses: actions/checkout@v4
+        if: steps.check-branch-exists.outputs.exists == 'true'
+        with:
           ref: ${{ inputs.branch_name }}
 
+      - uses: actions/checkout@v4
+        if: steps.check-branch-exists.outputs.exists == 'false'
+        with:
+          ref: main
+
       - name: Update file
-        run: sed 's/${{ inputs.acme_key }}.\+/${{ inputs.acme_key }} = "${{ inputs.acme_value }}"/' terraform/main.tf > terraform/main.tf
+        run: |
+          sed -e 's/${{ inputs.acme_key }}.\+/${{ inputs.acme_key }}\ =\ \"${{ inputs.acme_value }}\"/' terraform/main.tf > main.tf.tmp
+          mv main.tf.tmp terraform/main.tf
         shell: bash
 
-      - name: Commit and push
-        id: push
-        run: |
-          git add terraform/main.tf
-          git commit -m "acme-update-file ${{ inputs.acme_key }}"
-          git push origin "${{ inputs.branch_name }}"
-        shell: bash
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3.1.2
+
+      - name: Init Terraform
+        working-directory: terraform
+        run: terraform init -input=false
+
+      - name: Lintf Terraform
+        working-directory: terraform
+        run: terraform fmt -recursive
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          new_branch: ${{ inputs.branch_name }}
+          add: terraform/main.tf
+          message: acme-update-file ${{ inputs.acme_key }}
