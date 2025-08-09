@@ -17,12 +17,15 @@ permissions:
 
 jobs:
   acme-create-pull-request:
+    outputs:
+      pull_request_url: ${{ steps.create_pull_request.outputs.PULL_REQUEST_URL }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: create pull request
-        run: gh pr create -B main -H ${{ inputs.branch_name }} --title 'ACME Updates' --body 'expected_edits=${{ inputs.expected_edits }}'
+      - name: Create pull request
+        run: echo "PULL_REQUEST_URL=$(gh pr create -B main -H ${{ inputs.branch_name }} --title 'ACME Updates' --body 'expected_edits=${{ inputs.expected_edits }}'" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: create_pull_request
