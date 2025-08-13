@@ -15,6 +15,22 @@ resource "digitalocean_record" "com_123isme1_a_wild" {
   value  = local.ipAddress
   ttl    = local.ttl
 }
+resource "digitalocean_record" "com_123isme1_mx_10" {
+  domain   = digitalocean_domain.com_123isme1.id
+  type     = "MX"
+  name     = "@"
+  priority = 10
+  value    = "mxa.mailgun.org"
+  ttl      = local.ttl
+}
+resource "digitalocean_record" "com_123isme1_mx_20" {
+  domain   = digitalocean_domain.com_123isme1.id
+  type     = "MX"
+  name     = "@"
+  priority = 20
+  value    = "mxb.mailgun.org"
+  ttl      = local.ttl
+}
 resource "digitalocean_record" "com_123isme1_txt_acme_challenge" {
   domain = digitalocean_domain.com_123isme1.id
   type   = "TXT"
