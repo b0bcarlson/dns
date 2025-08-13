@@ -20,7 +20,7 @@ resource "digitalocean_record" "com_123isme1_mx_10" {
   type     = "MX"
   name     = "@"
   priority = 10
-  value    = "mxa.mailgun.org"
+  value    = "mxa.mailgun.org."
   ttl      = local.ttl
 }
 resource "digitalocean_record" "com_123isme1_mx_20" {
@@ -28,7 +28,7 @@ resource "digitalocean_record" "com_123isme1_mx_20" {
   type     = "MX"
   name     = "@"
   priority = 20
-  value    = "mxb.mailgun.org"
+  value    = "mxb.mailgun.org."
   ttl      = local.ttl
 }
 resource "digitalocean_record" "com_123isme1_txt_acme_challenge" {
