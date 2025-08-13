@@ -22,3 +22,19 @@ resource "digitalocean_record" "com_123isme1_txt_acme_challenge" {
   value  = local.com_123isme1_acme_challenge_value
   ttl    = local.ttl
 }
+resource "digitalocean_record" "com_123isme1_mx_10" {
+  domain   = digitalocean_domain.com_123isme1.id
+  type     = "MX"
+  name     = "@"
+  priority = 10
+  value    = "mxa.mailgun.org"
+  ttl      = local.ttl
+}
+resource "digitalocean_record" "com_123isme1_mx_20" {
+  domain   = digitalocean_domain.com_123isme1.id
+  type     = "MX"
+  name     = "@"
+  priority = 20
+  value    = "mxb.mailgun.org"
+  ttl      = local.ttl
+}
