@@ -35,7 +35,7 @@ jobs:
         working-directory: terraform
         run: terraform plan -no-color --out=tfplan.tfplan
       - name: Post PR comment
-        uses: borchero/terraform-plan-comment@v2.4.1
+        uses: borchero/terraform-plan-comment@v2.5.0
         with:
           token: ${{ github.token }}
           planfile: tfplan.tfplan
