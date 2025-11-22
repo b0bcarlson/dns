@@ -19,7 +19,7 @@ jobs:
       AWS_RESPONSE_CHECKSUM_VALIDATION: "when_required"
     steps:
       - name: Clone Code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3.1.2
       - name: Init Terraform

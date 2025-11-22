@@ -26,7 +26,7 @@ jobs:
       AWS_REQUEST_CHECKSUM_CALCULATION: "when_required"
       AWS_RESPONSE_CHECKSUM_VALIDATION: "when_required"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -39,12 +39,12 @@ jobs:
           fi
         shell: bash
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         if: steps.check-branch-exists.outputs.exists == 'true'
         with:
           ref: ${{ inputs.branch_name }}
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         if: steps.check-branch-exists.outputs.exists == 'false'
         with:
           ref: main
