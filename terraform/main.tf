@@ -26,6 +26,6 @@ locals {
   ipAddress                         = "192.95.125.196"
   ttl                               = 300
   com_123isme1_acme_challenge_value = "CHuo1r9wi_R53EKoj52iWIbBGwXdI6x-rx6zcDwO0gs"
-  es_bobcod_acme_challenge_value    = "SdlQbcEjZgc9Frsxs5jUG_xDYchPNRiTHVzdduqr6po"
+  es_bobcod_acme_challenge_value    = "QVeCtJRoU_ipm-AWbuqJ-GQPbhlRZdWt8piL0Mtk10g"
   net_bobcodes_acme_challenge_value = "9shsdCYAdIxL1FYCfFb5brjLXvR--LxK5pCPZKBqedU"
 }
