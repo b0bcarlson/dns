@@ -27,5 +27,5 @@ locals {
   ttl                               = 300
   com_123isme1_acme_challenge_value = "L7C1aSCtecQTWm5canVEZlC3X-9vW0DAEyMFHYBvH2w"
   es_bobcod_acme_challenge_value    = "sZjIAJ0ORJLUfs-Vvgsl4A4XgaXTUQ-djlkvmTXf-fo"
-  net_bobcodes_acme_challenge_value = "yxONCsPfWew0CeL4QHBOTD31ddD71eeesdgyr1iS_Jo"
+  net_bobcodes_acme_challenge_value = "KmSRFeQEBDUGhYDasEBayTzBD8Jip5-ttyLp_J-55K4"
 }
