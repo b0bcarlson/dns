@@ -2,7 +2,7 @@ terraform {
   required_providers {
     digitalocean = {
       source  = "digitalocean/digitalocean"
-      version = "2.89.0"
+      version = "2.99.0"
     }
   }
 }
@@ -25,7 +25,7 @@ terraform {
 locals {
   ipAddress                         = "172.86.6.242"
   ttl                               = 300
-  com_123isme1_acme_challenge_value = "5uAxehDypxuRmh-FLU5fLJ6QYFRLSl_Sui1HiAgF9Gc"
-  es_bobcod_acme_challenge_value    = "wqCVMjaVeesGm3UeyKtp9_CrBpnA4K37mC3R7NR4_aw"
-  net_bobcodes_acme_challenge_value = "exzatFbPmGol5p_T61zdzWNGpfM9nX0L3KsEHk_d6_A"
+  com_123isme1_acme_challenge_value = "9rmDP2jMr0Mm5lq0EgwvbiulIVTPTvC2_2WfTP1BP0c"
+  es_bobcod_acme_challenge_value    = "aCB8K-252KXYH8qVlC12E7DrXBweyU5A8tAcbAe-Zjs"
+  net_bobcodes_acme_challenge_value = "h39do1AA-FbJwjkGBF6ZckDFwJLoR8uAcusqLtcWVvo"
 }
